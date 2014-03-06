@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -20,29 +19,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'd2w!rrjk_-=l%bu1k@n(-f)1fea$6^z1$-8g35ry^3)i1c&kf1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
-ADMINS = (
-    ('Duda Nogueira', 'dudanogueira@gmail.com'),
-    ('Juliano Sene', 'julianosene@djlinux.com.br'),
-)
-
-MANAGERS = ADMINS
-
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'dudanogueira.disco@gmail.com'
-EMAIL_HOST_PASSWORD = 'disco0192'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'CONTA TESTE <dudanogueira.disco@gmail.com>'
-
-
 
 # Application definition
 
@@ -63,6 +44,7 @@ INSTALLED_APPS = (
     'oportunidades',
 )
 
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -79,7 +61,6 @@ WSGI_APPLICATION = 'sgco.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
 
 DATABASES = {
     'default': {
@@ -105,7 +86,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
@@ -128,3 +108,14 @@ import os
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+
+
+INSTANCE = lambda *x:os.path.join(os.path.dirname(__file__), *x)
+
+MEDIA_ROOT = INSTANCE('media')
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
+MEDIA_URL = '/media/'
+
