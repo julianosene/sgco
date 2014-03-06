@@ -27,6 +27,23 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 
+ADMINS = (
+    ('Duda Nogueira', 'dudanogueira@gmail.com'),
+    ('Juliano Sene', 'julianosene@djlinux.com.br'),
+)
+
+MANAGERS = ADMINS
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'dudanogueira.disco@gmail.com'
+EMAIL_HOST_PASSWORD = 'disco0192'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'CONTA TESTE <dudanogueira.disco@gmail.com>'
+
+
+
 # Application definition
 
 INSTALLED_APPS = (
