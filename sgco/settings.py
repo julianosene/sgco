@@ -30,12 +30,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 3d party apps
+    'south',
+    'django_extensions',
+    # custom
+    'profissionais',
+    'empregadores',
+    'oportunidades',
 )
 
 MIDDLEWARE_CLASSES = (
