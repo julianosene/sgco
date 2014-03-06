@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from models import Profissional
 from models import IdiomasdoProfissional
+from models import Idioma
 from models import FormacaoAcademicaDoProfissional
 from models import ExperienciaDoProfissional
 from models import CertificacaoDoProfissional
@@ -46,3 +47,4 @@ admin.site.register(PaisdoProfissional)
 admin.site.register(CidadedoProfissional)
 admin.site.register(EstadoProfissional)
 admin.site.register(CargosAreasPretendidas)
+admin.site.register(Idioma)

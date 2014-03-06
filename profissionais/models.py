@@ -174,4 +174,8 @@ class CertificacaoDoProfissional(models.Model):
 
 
 class Curso(models.Model):
+    
+    def __unicode__(self):
+        return self.nome
+    
     nome = models.CharField(blank=True, max_length=100)
