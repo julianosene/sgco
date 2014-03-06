@@ -22,10 +22,21 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'empregadores', ['Empregador'])
 
+        # Adding model 'Instituicao'
+        db.create_table(u'empregadores_instituicao', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, null=True, blank=True)),
+            ('uuid', self.gf('django.db.models.fields.CharField')(max_length=36, blank=True)),
+        ))
+        db.send_create_signal(u'empregadores', ['Instituicao'])
+
 
     def backwards(self, orm):
         # Deleting model 'Empregador'
         db.delete_table(u'empregadores_empregador')
+
+        # Deleting model 'Instituicao'
+        db.delete_table(u'empregadores_instituicao')
 
 
     models = {
@@ -74,6 +85,12 @@ class Migration(SchemaMigration):
             'logo': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
             'nome': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'telefone': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
+            'uuid': ('django.db.models.fields.CharField', [], {'max_length': '36', 'blank': 'True'})
+        },
+        u'empregadores.instituicao': {
+            'Meta': {'object_name': 'Instituicao'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
             'uuid': ('django.db.models.fields.CharField', [], {'max_length': '36', 'blank': 'True'})
         }

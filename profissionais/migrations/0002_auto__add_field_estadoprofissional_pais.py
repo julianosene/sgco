@@ -8,174 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'PaisdoProfissional'
-        db.create_table(u'profissionais_paisdoprofissional', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('nome', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-        ))
-        db.send_create_signal(u'profissionais', ['PaisdoProfissional'])
-
-        # Adding model 'CidadedoProfissional'
-        db.create_table(u'profissionais_cidadedoprofissional', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('estado', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['profissionais.EstadoProfissional'])),
-            ('nome', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-        ))
-        db.send_create_signal(u'profissionais', ['CidadedoProfissional'])
-
-        # Adding model 'EstadoProfissional'
-        db.create_table(u'profissionais_estadoprofissional', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('nome', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-        ))
-        db.send_create_signal(u'profissionais', ['EstadoProfissional'])
-
-        # Adding model 'CargosAreasPretendidas'
-        db.create_table(u'profissionais_cargosareaspretendidas', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('nome', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
-        ))
-        db.send_create_signal(u'profissionais', ['CargosAreasPretendidas'])
-
-        # Adding model 'Profissional'
-        db.create_table(u'profissionais_profissional', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, null=True, blank=True)),
-            ('uuid', self.gf('django.db.models.fields.CharField')(max_length=36, blank=True)),
-            ('curso', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['profissionais.Curso'])),
-            ('foto', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
-            ('nome', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('sobrenome', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
-            ('curriculo_arquivo', self.gf('django.db.models.fields.files.FileField')(max_length=100)),
-            ('sexo', self.gf('django.db.models.fields.CharField')(max_length=1, blank=True)),
-            ('estado_civil', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('possui_filhos', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('data_nascimento', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2014, 3, 6, 0, 0))),
-            ('pais', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['profissionais.PaisdoProfissional'])),
-            ('endereco', self.gf('django.db.models.fields.CharField')(max_length=500, blank=True)),
-            ('numero', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('complemento', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('bairro', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('cep', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('estado', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['profissionais.EstadoProfissional'])),
-            ('cidade', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['profissionais.CidadedoProfissional'])),
-            ('telefone_residencial', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('telefone_comercial', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('telefone_celular', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('portador_de_deficiencia', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('objetivo_profissional', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('mini_curriculo', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('aceita_trabalho_temporario', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('formacao_e_cursos_adicionais', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('outras_experiencias', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('criado', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, auto_now_add=True, blank=True)),
-            ('atualizado', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, auto_now=True, blank=True)),
-        ))
-        db.send_create_signal(u'profissionais', ['Profissional'])
-
-        # Adding M2M table for field cargos_e_areas_pretendidas on 'Profissional'
-        m2m_table_name = db.shorten_name(u'profissionais_profissional_cargos_e_areas_pretendidas')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('profissional', models.ForeignKey(orm[u'profissionais.profissional'], null=False)),
-            ('cargosareaspretendidas', models.ForeignKey(orm[u'profissionais.cargosareaspretendidas'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['profissional_id', 'cargosareaspretendidas_id'])
-
-        # Adding model 'Idioma'
-        db.create_table(u'profissionais_idioma', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('nome', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-        ))
-        db.send_create_signal(u'profissionais', ['Idioma'])
-
-        # Adding model 'IdiomasdoProfissional'
-        db.create_table(u'profissionais_idiomasdoprofissional', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('profissional', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['profissionais.Profissional'])),
-            ('idioma', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['profissionais.Idioma'])),
-            ('nivel', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-        ))
-        db.send_create_signal(u'profissionais', ['IdiomasdoProfissional'])
-
-        # Adding model 'FormacaoAcademicaDoProfissional'
-        db.create_table(u'profissionais_formacaoacademicadoprofissional', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('profissional', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['profissionais.Profissional'])),
-            ('grau', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('instituicao', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
-            ('nome_do_curso', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
-            ('data_inicio', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2014, 3, 6, 0, 0))),
-            ('data_conclusao', self.gf('django.db.models.fields.DateField')(blank=True)),
-        ))
-        db.send_create_signal(u'profissionais', ['FormacaoAcademicaDoProfissional'])
-
-        # Adding model 'ExperienciaDoProfissional'
-        db.create_table(u'profissionais_experienciadoprofissional', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('profissional', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['profissionais.Profissional'])),
-            ('empresa', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('cargo', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('data_inicio', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2014, 3, 6, 0, 0))),
-            ('data_conclusao', self.gf('django.db.models.fields.DateField')(blank=True)),
-            ('salario', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('funcoes', self.gf('django.db.models.fields.TextField')()),
-        ))
-        db.send_create_signal(u'profissionais', ['ExperienciaDoProfissional'])
-
-        # Adding model 'CertificacaoDoProfissional'
-        db.create_table(u'profissionais_certificacaodoprofissional', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('profissional', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['profissionais.Profissional'])),
-            ('nome', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
-        ))
-        db.send_create_signal(u'profissionais', ['CertificacaoDoProfissional'])
-
-        # Adding model 'Curso'
-        db.create_table(u'profissionais_curso', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('nome', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-        ))
-        db.send_create_signal(u'profissionais', ['Curso'])
+        # Adding field 'EstadoProfissional.pais'
+        db.add_column(u'profissionais_estadoprofissional', 'pais',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['profissionais.PaisdoProfissional']),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'PaisdoProfissional'
-        db.delete_table(u'profissionais_paisdoprofissional')
-
-        # Deleting model 'CidadedoProfissional'
-        db.delete_table(u'profissionais_cidadedoprofissional')
-
-        # Deleting model 'EstadoProfissional'
-        db.delete_table(u'profissionais_estadoprofissional')
-
-        # Deleting model 'CargosAreasPretendidas'
-        db.delete_table(u'profissionais_cargosareaspretendidas')
-
-        # Deleting model 'Profissional'
-        db.delete_table(u'profissionais_profissional')
-
-        # Removing M2M table for field cargos_e_areas_pretendidas on 'Profissional'
-        db.delete_table(db.shorten_name(u'profissionais_profissional_cargos_e_areas_pretendidas'))
-
-        # Deleting model 'Idioma'
-        db.delete_table(u'profissionais_idioma')
-
-        # Deleting model 'IdiomasdoProfissional'
-        db.delete_table(u'profissionais_idiomasdoprofissional')
-
-        # Deleting model 'FormacaoAcademicaDoProfissional'
-        db.delete_table(u'profissionais_formacaoacademicadoprofissional')
-
-        # Deleting model 'ExperienciaDoProfissional'
-        db.delete_table(u'profissionais_experienciadoprofissional')
-
-        # Deleting model 'CertificacaoDoProfissional'
-        db.delete_table(u'profissionais_certificacaodoprofissional')
-
-        # Deleting model 'Curso'
-        db.delete_table(u'profissionais_curso')
+        # Deleting field 'EstadoProfissional.pais'
+        db.delete_column(u'profissionais_estadoprofissional', 'pais_id')
 
 
     models = {
@@ -240,7 +81,8 @@ class Migration(SchemaMigration):
         u'profissionais.estadoprofissional': {
             'Meta': {'object_name': 'EstadoProfissional'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'nome': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
+            'nome': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'pais': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['profissionais.PaisdoProfissional']"})
         },
         u'profissionais.experienciadoprofissional': {
             'Meta': {'object_name': 'ExperienciaDoProfissional'},

@@ -13,8 +13,10 @@ class OportunidadeDeTrabalho(models.Model):
         return "Oportunidade de Trabalho: %s em %s" % (self.titulo, self.empregador)
     
     empregador = models.ForeignKey("empregadores.Empregador")
+    instituicao = models.ForeignKey("empregadores.Instituicao")
     ativa = models.BooleanField(default=True)
     titulo = models.CharField(blank=True, max_length=100)
+    tipo = models.ForeignKey("TipoOportunidadeTrabalho")
     # metadata
     criado = models.DateTimeField(blank=True, default=datetime.datetime.now, auto_now_add=True, verbose_name="Criado")
     atualizado = models.DateTimeField(blank=True, default=datetime.datetime.now, auto_now=True, verbose_name="Atualizado")
@@ -29,3 +31,6 @@ class InscricaoOportunidade(models.Model):
 
     class Meta:
         unique_together = (('oportunidade', 'profissional'),)
+
+class TipoOportunidadeTrabalho(models.Model):
+    nome = models.CharField(blank=True, max_length=100)

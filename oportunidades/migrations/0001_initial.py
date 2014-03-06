@@ -12,8 +12,10 @@ class Migration(SchemaMigration):
         db.create_table(u'oportunidades_oportunidadedetrabalho', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('empregador', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['empregadores.Empregador'])),
+            ('instituicao', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['empregadores.Instituicao'])),
             ('ativa', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('titulo', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+            ('tipo', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['oportunidades.TipoOportunidadeTrabalho'])),
             ('criado', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, auto_now_add=True, blank=True)),
             ('atualizado', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, auto_now=True, blank=True)),
         ))
@@ -29,13 +31,29 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'oportunidades', ['InscricaoOportunidade'])
 
+        # Adding unique constraint on 'InscricaoOportunidade', fields ['oportunidade', 'profissional']
+        db.create_unique(u'oportunidades_inscricaooportunidade', ['oportunidade_id', 'profissional_id'])
+
+        # Adding model 'TipoOportunidadeTrabalho'
+        db.create_table(u'oportunidades_tipooportunidadetrabalho', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('nome', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+        ))
+        db.send_create_signal(u'oportunidades', ['TipoOportunidadeTrabalho'])
+
 
     def backwards(self, orm):
+        # Removing unique constraint on 'InscricaoOportunidade', fields ['oportunidade', 'profissional']
+        db.delete_unique(u'oportunidades_inscricaooportunidade', ['oportunidade_id', 'profissional_id'])
+
         # Deleting model 'OportunidadeDeTrabalho'
         db.delete_table(u'oportunidades_oportunidadedetrabalho')
 
         # Deleting model 'InscricaoOportunidade'
         db.delete_table(u'oportunidades_inscricaooportunidade')
+
+        # Deleting model 'TipoOportunidadeTrabalho'
+        db.delete_table(u'oportunidades_tipooportunidadetrabalho')
 
 
     models = {
@@ -87,8 +105,14 @@ class Migration(SchemaMigration):
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
             'uuid': ('django.db.models.fields.CharField', [], {'max_length': '36', 'blank': 'True'})
         },
+        u'empregadores.instituicao': {
+            'Meta': {'object_name': 'Instituicao'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
+            'uuid': ('django.db.models.fields.CharField', [], {'max_length': '36', 'blank': 'True'})
+        },
         u'oportunidades.inscricaooportunidade': {
-            'Meta': {'object_name': 'InscricaoOportunidade'},
+            'Meta': {'unique_together': "(('oportunidade', 'profissional'),)", 'object_name': 'InscricaoOportunidade'},
             'atualizado': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'auto_now': 'True', 'blank': 'True'}),
             'criado': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -102,16 +126,74 @@ class Migration(SchemaMigration):
             'criado': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'auto_now_add': 'True', 'blank': 'True'}),
             'empregador': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['empregadores.Empregador']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'instituicao': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['empregadores.Instituicao']"}),
+            'tipo': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['oportunidades.TipoOportunidadeTrabalho']"}),
             'titulo': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
+        },
+        u'oportunidades.tipooportunidadetrabalho': {
+            'Meta': {'object_name': 'TipoOportunidadeTrabalho'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nome': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
+        },
+        u'profissionais.cargosareaspretendidas': {
+            'Meta': {'object_name': 'CargosAreasPretendidas'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nome': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'})
+        },
+        u'profissionais.cidadedoprofissional': {
+            'Meta': {'object_name': 'CidadedoProfissional'},
+            'estado': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['profissionais.EstadoProfissional']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nome': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
+        },
+        u'profissionais.curso': {
+            'Meta': {'object_name': 'Curso'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nome': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
+        },
+        u'profissionais.estadoprofissional': {
+            'Meta': {'object_name': 'EstadoProfissional'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nome': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
+        },
+        u'profissionais.paisdoprofissional': {
+            'Meta': {'object_name': 'PaisdoProfissional'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nome': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
         },
         u'profissionais.profissional': {
             'Meta': {'object_name': 'Profissional'},
+            'aceita_trabalho_temporario': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'atualizado': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'auto_now': 'True', 'blank': 'True'}),
+            'bairro': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'cargos_e_areas_pretendidas': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['profissionais.CargosAreasPretendidas']", 'symmetrical': 'False'}),
+            'cep': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'cidade': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['profissionais.CidadedoProfissional']"}),
+            'complemento': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'criado': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'auto_now_add': 'True', 'blank': 'True'}),
             'curriculo_arquivo': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
-            'curriculo_texto': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'curso': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['profissionais.Curso']"}),
+            'data_nascimento': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 6, 0, 0)'}),
+            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
+            'endereco': ('django.db.models.fields.CharField', [], {'max_length': '500', 'blank': 'True'}),
+            'estado': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['profissionais.EstadoProfissional']"}),
+            'estado_civil': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'formacao_e_cursos_adicionais': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'foto': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'mini_curriculo': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'nome': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
+            'numero': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'objetivo_profissional': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'outras_experiencias': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'pais': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['profissionais.PaisdoProfissional']"}),
+            'portador_de_deficiencia': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'possui_filhos': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'sexo': ('django.db.models.fields.CharField', [], {'max_length': '1', 'blank': 'True'}),
+            'sobrenome': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
+            'telefone_celular': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'telefone_comercial': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'telefone_residencial': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
             'uuid': ('django.db.models.fields.CharField', [], {'max_length': '36', 'blank': 'True'})
         }
