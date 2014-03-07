@@ -114,6 +114,10 @@ class Profissional(models.Model):
     atualizado = models.DateTimeField(blank=True, default=datetime.datetime.now, auto_now=True, verbose_name="Atualizado")        
 
 class Idioma(models.Model):
+    
+    def __unicode__(self):
+        return self.nome
+    
     nome = models.CharField(blank=True, max_length=100)
 
 class IdiomasdoProfissional(models.Model):

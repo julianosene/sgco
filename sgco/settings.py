@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+
+INSTANCE = lambda *x:os.path.join(os.path.dirname(__file__), *x)
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -42,6 +46,7 @@ INSTALLED_APPS = (
     'profissionais',
     'empregadores',
     'oportunidades',
+    'frontend',
 )
 
 
@@ -106,7 +111,7 @@ ALLOWED_HOSTS = ['*']
 # Static asset configuration
 import os
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = INSTANCE('static_local')
 STATIC_URL = '/static/'
 
 

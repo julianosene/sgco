@@ -6,12 +6,16 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'sgco.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
+    url(r'^$', 'frontend.views.home', name='home'),
     url(r'^admin/', include(admin.site.urls)),
 ) 
+
+
+# auth system
+urlpatterns += patterns('django.contrib.auth',
+    url(r'^sair/$', 'views.logout', {}, 'logout'),
+    url(r'^accounts/login/$', 'views.login', {}, 'login'),
+)
 
 
 # DEBUGG
