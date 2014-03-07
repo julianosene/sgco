@@ -7,9 +7,6 @@ from models import FormacaoAcademicaDoProfissional
 from models import ExperienciaDoProfissional
 from models import CertificacaoDoProfissional
 from models import Curso
-from models import PaisdoProfissional
-from models import EstadoProfissional
-from models import CidadedoProfissional
 from models import CargosAreasPretendidas
 
 class IdiomasdoProfissionalInline(admin.StackedInline):
@@ -43,8 +40,5 @@ class ProfissionalAdmin(admin.ModelAdmin):
 admin.site.register(Profissional, ProfissionalAdmin)
 admin.site.register(IdiomasdoProfissional)
 admin.site.register(Curso)
-admin.site.register(PaisdoProfissional)
-admin.site.register(CidadedoProfissional)
-admin.site.register(EstadoProfissional)
 admin.site.register(CargosAreasPretendidas)
 admin.site.register(Idioma)
