@@ -61,32 +61,6 @@ NIVEL_IDIOMA_CHOICES = (
     ('fluente', 'Fluente'),
 )
 
-
-class PaisdoProfissional(models.Model):
-    
-    def __unicode__(self):
-        return self.nome
-        
-    nome = models.CharField(blank=True, max_length=100)
-
-
-class CidadedoProfissional(models.Model):
-    
-    def __unicode__(self):
-        return self.nome
-        
-    estado = models.ForeignKey("EstadoProfissional")
-    nome = models.CharField(blank=True, max_length=100)
-
-class EstadoProfissional(models.Model):
-    
-    def __unicode__(self):
-        return self.nome
-    
-    pais = models.ForeignKey('PaisdoProfissional')
-    nome = models.CharField(blank=True, max_length=100)
-
-
 class CargosAreasPretendidas(models.Model):
     
     def __unicode__(self):
@@ -103,24 +77,24 @@ class Profissional(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name="Usuário do Sistema", blank=True, null=True)
     uuid = UUIDField()
     curso = models.ForeignKey("Curso")
-    foto = models.ImageField(upload_to=profissional_foto_path, blank=False)
+    foto = models.ImageField(upload_to=profissional_foto_path, blank=True)
     nome = models.CharField(blank=False, max_length=500)
     sobrenome = models.CharField(blank=False, max_length=500)
     email = models.EmailField()
-    curriculo_arquivo = models.FileField(upload_to=profissional_curriculo_path)
+    curriculo_arquivo = models.FileField(upload_to=profissional_curriculo_path, blank=True)
     sexo = models.CharField(blank=True, max_length=1, choices=SEXO_CHOICES)
     estado_civil = models.CharField(blank=True, max_length=100, choices=ESTADO_CIVIL_CHOICES)
     possui_filhos = models.BooleanField(default=False)
     data_nascimento = models.DateField(default=datetime.datetime.today)
-    pais = models.ForeignKey('PaisdoProfissional')
     # endereco
     endereco = models.CharField(blank=True, max_length=500)
     numero = models.CharField(blank=True, max_length=100)
     complemento = models.CharField(blank=True, max_length=100)
     bairro = models.CharField(blank=True, max_length=100)
     cep = models.CharField(blank=True, max_length=100)
-    estado = models.ForeignKey("EstadoProfissional")
-    cidade = models.ForeignKey("CidadedoProfissional")
+    estado = models.CharField(blank=True, max_length=100)
+    cidade = models.CharField(blank=True, max_length=100)
+    pais = models.CharField(blank=True, max_length=100)
     # contatos
     telefone_residencial = models.CharField(blank=True, max_length=100)
     telefone_comercial = models.CharField(blank=True, max_length=100)
@@ -155,7 +129,6 @@ class FormacaoAcademicaDoProfissional(models.Model):
     nome_do_curso = models.CharField(blank=True, max_length=200)
     data_inicio = models.DateField(default=datetime.datetime.today)
     data_conclusao = models.DateField(blank=True)
-
 
 class ExperienciaDoProfissional(models.Model):
     
