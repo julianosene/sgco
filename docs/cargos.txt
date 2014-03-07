@@ -1,0 +1,143 @@
+Administração Banco de Dados - DBA
+Administrador de Dados
+Administrador de Linux
+Administrador de Redes
+Administrador de Sistemas
+Analista de Banco de Dados
+Analista de BI
+Analista de Comunicação
+Analista de Desenvolvimento
+Analista de E-Commerce
+Analista de Implantação
+Analista de infra-estrutura
+Analista de Marketing
+Analista de Mídias Sociais
+Analista de Negocios
+Analista de Processos
+Analista de Produção
+Analista de Projetos
+Analista de Qualidade
+Analista de Redes
+Analista de Requisitos
+Analista de SEO
+Analista de Sistemas
+Analista de Sistemas de Automação
+Analista de Suporte
+Analista de Testes
+Analista de Usabilidade
+Analista Funcional
+Analista Microinformatica
+Analista Programador
+Analista Programador Microsiga
+Analista Programador Oracle - DBA
+Analista Segurança Sistemas
+Analista Web Analytics
+Arquiteto
+Arquiteto de Sistemas
+Arquiteto de Software
+Assessoria de Imprensa - WEB
+Assistente de E-Commerce
+Assistente de Informática
+Assistente de Service Desk
+Atendente de Help Desk
+Auditor de Sistemas
+Comercial
+Comunicação Visual
+Consultor
+Consultor de Vendas - TI
+Consultor SAP
+Consultoria/Serviços
+Coordenador
+Coordenador de projetos
+Coordenador de Testes
+Coordenador de TI
+Desenhista Industrial
+Desenhista Projetista
+Desenvolvedor
+Desenvolvedor de Software
+Desenvolvedor/Programador .Net
+Desenvolvedor/Programador ASP
+Desenvolvedor/Programador Java
+Desenvolvedor/Programador PHP
+Desenvolvedor/Programador Sharepoint
+Desenvolvedor/Programador Web
+Desenvolvimento de Jogos Digitais
+Desenvolvimento/Programação
+Design de Jogos Digitais
+Design de Produto
+Designer Gráfico
+Digitador
+Diretor
+Diretor de IT
+Educacional - Professor
+Engenheiro
+Engenheiro de Automação
+Engenheiro de Computação
+Engenheiro de Software
+Engenheiro de Telecomunicações
+Engenheiro Eletrônico
+Engenheiro Mecatrônico
+ERP/MRP
+Especialista
+Especialista em Links Patrocinados
+Estagiário
+Gerente de Contas TI
+Gerente de Implantação
+Gerente de Operação
+Gerente de Projetos
+Gerente de Sistemas
+Gerente de Suporte
+Gerente de Telecom
+Gerente de Testes
+Gerente de TI
+Gerente E-Commerce
+Gestor de Tecnologia da Informação
+Hardware
+Ilustrador
+Implantação
+Instrutor
+Líder de Testes
+Líder Técnico
+Maquina RISC
+Negócios
+Operador
+Operador de Computador
+Operador de Telemarketing
+Operador/Scheduller
+Outros
+Pesquisas/Projetos
+Presidente
+Professor
+Programador
+Programador ABAP
+Programador C#
+Programador C++
+Programador Clipper
+Programador CLP
+Programador Cobol
+Programador Delphi
+Programador ETL
+Programador FLEX
+Programador Perl
+Programador PL/SQL
+Programador Power Builder
+Programador VBA Excel
+Programador Visual
+Programador Visual Basic
+Programador Visual FoxPro
+Recursos Humanos em TI
+Redator Web
+Scrum Master
+Supervisor
+Supervisor de Operações
+Tecnico de Hardware
+Tecnico Microinformatica
+Técnico
+Técnico de Suporte
+Técnico Eletrônico
+Técnico em Geoprocessamento
+Técnico em Mecatrônica
+Técnico em Telecomunicações
+Trainee
+Webdesigner
+Webmaster
